@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <main className="h-screen my-8 flex gap-8">
-        <Sidebar handleAddProjectClick={toggleNewProjectView} />
+        <Sidebar projects={projects} handleAddProjectClick={toggleNewProjectView} />
         {!isNewProjectView &&
           <div className="flex flex-col items-center w-full">
             <img className="w-16 h-16 object-contain mx-auto" src={noProjectsImg} alt="Project list" />
