@@ -4,13 +4,19 @@ import Sidebar from './components/Sidebar';
 import Button from './components/Button';
 import NewProject from './components/NewProject';
 
-const projects = [];
+const state = [];
 
 function App() {
+  const [projects, setProjects] = useState(state);
   const [isNewProjectView, setIsNewProjectView] = useState(false);
 
   const toggleNewProjectView = () => {
     setIsNewProjectView(prevState => !prevState);
+  };
+
+  const handleSaveProject = (project) => {
+    setProjects(prevProjects => [...prevProjects, project]);
+    toggleNewProjectView();
   };
 
   return (
@@ -25,7 +31,7 @@ function App() {
             </h2>
             <p className="text-stone-600 mb-4">Select a project or get started with a new one</p>
             <Button
-              className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950"
+              className={'px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950'}
               onClick={toggleNewProjectView}
             >
               Create new project
@@ -35,7 +41,7 @@ function App() {
         {isNewProjectView &&
           <NewProject
             handleCancel={toggleNewProjectView}
-            handleSave={toggleNewProjectView}
+            handleSave={handleSaveProject}
           />
         }
       </main>
