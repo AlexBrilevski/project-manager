@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-const Sidebar = ({ projects, handleAddProjectClick }) => {
+const Sidebar = ({ projects, handleProjectClick, handleAddProjectClick }) => {
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">Your projects</h2>
@@ -15,6 +15,7 @@ const Sidebar = ({ projects, handleAddProjectClick }) => {
           {projects.map((project, index) =>
             <Button key={index}
               className={'w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800'}
+              onClick={() => handleProjectClick(index)}
             >
               {project.title}
             </Button>

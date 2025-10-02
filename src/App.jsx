@@ -3,27 +3,41 @@ import noProjectsImg from './assets/no-projects.png';
 import Sidebar from './components/Sidebar';
 import Button from './components/Button';
 import NewProject from './components/NewProject';
+import Project from './components/Project';
 
 const state = [];
 
 function App() {
   const [projects, setProjects] = useState(state);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [isNewProjectView, setIsNewProjectView] = useState(false);
 
   const toggleNewProjectView = () => {
     setIsNewProjectView(prevState => !prevState);
+    setSelectedProject(null);
   };
 
   const handleSaveProject = (project) => {
     setProjects(prevProjects => [...prevProjects, project]);
-    toggleNewProjectView();
+    setIsNewProjectView(false);
+  };
+
+  const handleSelectProject = (projectIndex) => {
+    setSelectedProject(projects[projectIndex]);
+    if (isNewProjectView) {
+      setIsNewProjectView(false);
+    }
   };
 
   return (
     <>
       <main className="h-screen my-8 flex gap-8">
-        <Sidebar projects={projects} handleAddProjectClick={toggleNewProjectView} />
-        {!isNewProjectView &&
+        <Sidebar
+          projects={projects}
+          handleProjectClick={handleSelectProject}
+          handleAddProjectClick={toggleNewProjectView}
+        />
+        {(!isNewProjectView && !selectedProject) &&
           <div className="flex flex-col items-center w-full">
             <img className="w-16 h-16 object-contain mx-auto" src={noProjectsImg} alt="Project list" />
             <h2 className="text-xl font-bold text-stone-700 my-4">
@@ -44,6 +58,7 @@ function App() {
             handleSave={handleSaveProject}
           />
         }
+        {selectedProject && <Project project={selectedProject} />}
       </main>
     </>
   );
