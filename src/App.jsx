@@ -22,11 +22,16 @@ function App() {
     setIsNewProjectView(false);
   };
 
-  const handleSelectProject = (projectIndex) => {
-    setSelectedProject(projects[projectIndex]);
+  const handleSelectProject = (projectId) => {
+    setSelectedProject({...projects[projectId], id: projectId});
     if (isNewProjectView) {
       setIsNewProjectView(false);
     }
+  };
+
+  const handleDeleteProject = (projectId) => {
+    setProjects(prevProjects => prevProjects.filter(project => prevProjects.indexOf(project) !== projectId));
+    setSelectedProject(null);
   };
 
   return (
@@ -58,7 +63,12 @@ function App() {
             handleSave={handleSaveProject}
           />
         }
-        {selectedProject && <Project project={selectedProject} />}
+        {selectedProject &&
+          <Project
+            project={selectedProject}
+            handleDelete={handleDeleteProject}
+          />
+        }
       </main>
     </>
   );
