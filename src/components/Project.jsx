@@ -1,4 +1,5 @@
 import Button from "./Button";
+import Tasks from './Tasks';
 
 const Project = ({ project, handleDelete }) => {
   return (
@@ -17,6 +18,7 @@ const Project = ({ project, handleDelete }) => {
       <p className="text-stone-600 mb-4">
         {project.description}
       </p>
+      <Tasks tasks={project.tasks} />
     </div>
   );
 };

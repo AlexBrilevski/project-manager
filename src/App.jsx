@@ -18,7 +18,7 @@ function App() {
   };
 
   const handleSaveProject = (project) => {
-    setProjects(prevProjects => [...prevProjects, project]);
+    setProjects(prevProjects => [...prevProjects, {...project, tasks: []}]);
     setIsNewProjectView(false);
   };
 
