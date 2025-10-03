@@ -18,7 +18,7 @@ const NewProject = ({ handleCancel, handleSave }) => {
   };
 
   const onSaveClick = () => {
-    handleSave({title, description, dueDate});
+    handleSave({id: Date.now(), title, description, dueDate, tasks: []});
   };
 
   return (

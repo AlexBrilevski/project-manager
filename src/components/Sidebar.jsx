@@ -12,10 +12,10 @@ const Sidebar = ({ projects, handleProjectClick, handleAddProjectClick }) => {
       </Button>
       {projects.length > 0 &&
         <div className="flex flex-col gap-1 my-4">
-          {projects.map((project, index) =>
-            <Button key={index}
+          {projects.map(project =>
+            <Button key={project.id}
               className={'w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800'}
-              onClick={() => handleProjectClick(index)}
+              onClick={() => handleProjectClick(project.id)}
             >
               {project.title}
             </Button>

@@ -18,21 +18,33 @@ function App() {
   };
 
   const handleSaveProject = (project) => {
-    setProjects(prevProjects => [...prevProjects, {...project, tasks: []}]);
+    setProjects(prevProjects => [...prevProjects, project]);
     setIsNewProjectView(false);
   };
 
   const handleSelectProject = (projectId) => {
-    setSelectedProject({...projects[projectId], id: projectId});
+    setSelectedProject(projects.find(project => project.id === projectId));
     if (isNewProjectView) {
       setIsNewProjectView(false);
     }
   };
 
   const handleDeleteProject = (projectId) => {
-    setProjects(prevProjects => prevProjects.filter(project => prevProjects.indexOf(project) !== projectId));
+    setProjects(prevProjects => prevProjects.filter(project => project.id !== projectId));
     setSelectedProject(null);
   };
+
+  const handleAddTask = (projectId, title) => {
+    const projectToUpdate = projects.find(project => project.id === projectId);
+
+    // setProjects(prevProjects => prevProjects.map(project => project.id === projectId ? {...project, tasks: [...project.tasks, {title}]} : project));
+    // setSelectedProject(prevProject => ({...prevProject, tasks: [...prevProject.tasks, {title}]}));
+    projectToUpdate.tasks = [...projectToUpdate.tasks, {title}];
+    setSelectedProject(projectToUpdate);
+  };
+
+  console.log('projects', projects);
+  console.log('selectedProject', selectedProject);
 
   return (
     <>
@@ -67,6 +79,7 @@ function App() {
           <Project
             project={selectedProject}
             handleDelete={handleDeleteProject}
+            handleAddTask={handleAddTask}
           />
         }
       </main>
