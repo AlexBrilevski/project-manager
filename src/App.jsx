@@ -35,16 +35,9 @@ function App() {
   };
 
   const handleAddTask = (projectId, title) => {
-    const projectToUpdate = projects.find(project => project.id === projectId);
-
-    // setProjects(prevProjects => prevProjects.map(project => project.id === projectId ? {...project, tasks: [...project.tasks, {title}]} : project));
-    // setSelectedProject(prevProject => ({...prevProject, tasks: [...prevProject.tasks, {title}]}));
-    projectToUpdate.tasks = [...projectToUpdate.tasks, {title}];
-    setSelectedProject(projectToUpdate);
+    setProjects(prevProjects => prevProjects.map(project => project.id === projectId ? {...project, tasks: [...project.tasks, {title}]} : project));
+    setSelectedProject(prevProject => ({...prevProject, tasks: [...prevProject.tasks, {title}]}));
   };
-
-  console.log('projects', projects);
-  console.log('selectedProject', selectedProject);
 
   return (
     <>
