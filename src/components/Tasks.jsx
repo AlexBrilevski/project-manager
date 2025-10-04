@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Task from './Task';
-import Button from "./Button";
 
 const Tasks = ({ projectId, tasks, handleAddTask, handleDeleteTask }) => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
@@ -18,7 +17,7 @@ const Tasks = ({ projectId, tasks, handleAddTask, handleDeleteTask }) => {
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.currentTarget.value)}
         />
-        <Button onClick={onAddTaskClcik}>Add task</Button>
+        <button onClick={onAddTaskClcik}>Add task</button>
       </div>
       {tasks.length > 0 ?
         <ul className="p-4 mt-8 rounded-md bg-stone-100">

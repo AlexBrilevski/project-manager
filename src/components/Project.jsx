@@ -1,4 +1,3 @@
-import Button from "./Button";
 import Tasks from './Tasks';
 
 const Project = ({ project, handleDelete, handleAddTask, handleDeleteTask }) => {
@@ -8,9 +7,9 @@ const Project = ({ project, handleDelete, handleAddTask, handleDeleteTask }) => 
         <h1 className="text-3xl font-bold text-stone-600 mb-2">
           {project.title}
         </h1>
-        <Button onClick={() => handleDelete(project.id)}>
+        <button onClick={() => handleDelete(project.id)}>
           Delete
-        </Button>
+        </button>
       </div>
       <p className="text-stone-400 mb-4">
         {project.dueDate}

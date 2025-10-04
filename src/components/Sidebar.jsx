@@ -7,10 +7,7 @@ const Sidebar = ({ projects, handleProjectClick, handleAddProjectClick }) => {
         Your projects
       </h2>
       <div>
-        <Button
-          className={'px-4 py-2 text-xs md:text-base rounded-md bg-stone-700 text-stone-400 hover:bg-stone-600 hover:text-stone-100'}
-          onClick={handleAddProjectClick}
-        >
+        <Button onClick={handleAddProjectClick}>
           + Add Project
         </Button>
       </div>
@@ -18,12 +15,12 @@ const Sidebar = ({ projects, handleProjectClick, handleAddProjectClick }) => {
         <ul className="flex flex-col gap-1 my-4">
           {projects.map(project =>
             <li key={project.id}>
-              <Button
+              <button
                 className={'w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800'}
                 onClick={() => handleProjectClick(project.id)}
               >
                 {project.title}
-              </Button>
+              </button>
             </li>
           )}
         </ul>
