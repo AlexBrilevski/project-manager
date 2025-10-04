@@ -4,64 +4,84 @@ import NoProjectSelected from './components/NoProjectSelected';
 import NewProject from './components/NewProject';
 import Project from './components/Project';
 
-const state = [];
-
 function App() {
-  const [projects, setProjects] = useState(state);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isNewProjectView, setIsNewProjectView] = useState(false);
+  const [projectsState, setProjectsState] = useState({
+    selectedProjectId: undefined,
+    projects: [],
+  });
 
-  const toggleNewProjectView = () => {
-    setIsNewProjectView(prevState => !prevState);
-    setSelectedProject(null);
+  const enableNewProjectView = () => {
+    setProjectsState(prevState => ({
+      ...prevState,
+      selectedProjectId: null,
+    }));
   };
 
+  const handleCancelProject = () => {
+    setProjectsState(prevState => ({
+      ...prevState,
+      selectedProjectId: undefined,
+    }));
+  }
+
   const handleSaveProject = (project) => {
-    setProjects(prevProjects => [...prevProjects, project]);
-    setIsNewProjectView(false);
+    setProjectsState(prevState => ({
+      selectedProjectId: undefined,
+      projects: [...prevState.projects, project],
+    }));
   };
 
   const handleSelectProject = (projectId) => {
-    setSelectedProject(projects.find(project => project.id === projectId));
-    if (isNewProjectView) {
-      setIsNewProjectView(false);
-    }
+    setProjectsState(prevState => ({
+      ...prevState,
+      selectedProjectId: projectId,
+    }));
   };
 
   const handleDeleteProject = (projectId) => {
-    setProjects(prevProjects => prevProjects.filter(project => project.id !== projectId));
-    setSelectedProject(null);
+    setProjectsState(prevState => ({
+      selectedProjectId: undefined,
+      projects: prevState.projects.filter(project => project.id !== projectId),
+    }));
   };
 
   const handleAddTask = (projectId, title) => {
-    setProjects(prevProjects => prevProjects.map(project => project.id === projectId ? { ...project, tasks: [...project.tasks, { title }] } : project));
-    setSelectedProject(prevProject => ({ ...prevProject, tasks: [...prevProject.tasks, { title }] }));
+    setProjectsState(prevState => ({
+      ...prevState,
+      projects: prevState.projects.map(project => project.id === projectId ?
+        { ...project, tasks: [...project.tasks, { title }] } : project),
+    }));
   };
 
   const handleDeleteTask = (projectId, taskIndex) => {
-    setProjects(prevProjects => prevProjects.map(project => project.id === projectId ? { ...project, tasks: project.tasks.filter(task => project.tasks.indexOf(task) !== taskIndex) } : project));
-    setSelectedProject(prevProject => ({ ...prevProject, tasks: prevProject.tasks.filter(task => prevProject.tasks.indexOf(task) !== taskIndex) }));
+    setProjectsState(prevState => ({
+      ...prevState,
+      projects: prevState.projects.map(project => project.id === projectId ?
+        { ...project, tasks: project.tasks.filter(task => project.tasks.indexOf(task) !== taskIndex) } : project),
+    }));
   };
+
+  console.log(projectsState);
 
   return (
     <main className="h-screen my-8 flex gap-8">
       <Sidebar
-        projects={projects}
+        projects={projectsState.projects}
         handleProjectClick={handleSelectProject}
-        handleAddProjectClick={toggleNewProjectView}
+        handleAddProjectClick={enableNewProjectView}
       />
-      {(!isNewProjectView && !selectedProject) &&
-        <NoProjectSelected toggleNewProjectView={toggleNewProjectView} />
+      {projectsState.selectedProjectId === undefined &&
+        <NoProjectSelected handleAddProjectClick={enableNewProjectView} />
       }
-      {isNewProjectView &&
+      {projectsState.selectedProjectId === null &&
         <NewProject
-          handleCancel={toggleNewProjectView}
+          handleCancel={handleCancelProject}
           handleSave={handleSaveProject}
         />
       }
-      {selectedProject &&
+      {projectsState.selectedProjectId &&
         <Project
-          project={selectedProject}
+          project={projectsState.projects.find(project => project.id === projectsState.selectedProjectId)}
           handleDelete={handleDeleteProject}
           handleAddTask={handleAddTask}
           handleDeleteTask={handleDeleteTask}
