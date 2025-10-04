@@ -10,7 +10,7 @@ const Input = ({ label, isTextarea, ...props }) => {
         <textarea
           className={fieldClasses}
           {...props}
-        ></textarea>
+        />
         :
         <input
           className={fieldClasses}
