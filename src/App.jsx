@@ -39,6 +39,11 @@ function App() {
     setSelectedProject(prevProject => ({...prevProject, tasks: [...prevProject.tasks, {title}]}));
   };
 
+  const handleDeleteTask = (projectId, taskIndex) => {
+    setProjects(prevProjects => prevProjects.map(project => project.id === projectId ? {...project, tasks: project.tasks.filter(task => project.tasks.indexOf(task) !== taskIndex)} : project));
+    setSelectedProject(prevProject => ({...prevProject, tasks: prevProject.tasks.filter(task => prevProject.tasks.indexOf(task) !== taskIndex)}));
+  };
+
   return (
     <>
       <main className="h-screen my-8 flex gap-8">
@@ -73,6 +78,7 @@ function App() {
             project={selectedProject}
             handleDelete={handleDeleteProject}
             handleAddTask={handleAddTask}
+            handleDeleteTask={handleDeleteTask}
           />
         }
       </main>

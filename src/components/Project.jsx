@@ -1,7 +1,7 @@
 import Button from "./Button";
 import Tasks from './Tasks';
 
-const Project = ({ project, handleDelete, handleAddTask }) => {
+const Project = ({ project, handleDelete, handleAddTask, handleDeleteTask }) => {
   return (
     <div className="w-[35rem] mt-16">
       <div className="flex items-center justify-between">
@@ -22,6 +22,7 @@ const Project = ({ project, handleDelete, handleAddTask }) => {
         projectId={project.id}
         tasks={project.tasks}
         handleAddTask={handleAddTask}
+        handleDeleteTask={handleDeleteTask}
       />
     </div>
   );

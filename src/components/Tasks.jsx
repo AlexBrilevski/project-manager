@@ -2,11 +2,12 @@ import { useState } from 'react';
 import Task from './Task';
 import Button from "./Button";
 
-const Tasks = ({ projectId, tasks, handleAddTask }) => {
+const Tasks = ({ projectId, tasks, handleAddTask, handleDeleteTask }) => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   const onAddTaskClcik = () => {
     handleAddTask(projectId, newTaskTitle);
+    setNewTaskTitle('');
   };
 
   return (
@@ -21,7 +22,15 @@ const Tasks = ({ projectId, tasks, handleAddTask }) => {
       </div>
       {tasks.length > 0 ?
         <ul className="p-4 mt-8 rounded-md bg-stone-100">
-          {tasks.map((task, index) => <Task key={index} task={task} />)}
+          {tasks.map((task, index) =>
+            <Task
+              key={index}
+              projectId={projectId}
+              taskIndex={index}
+              task={task}
+              handleDeleteTask={handleDeleteTask}
+            />
+          )}
         </ul>
         :
         <p className="text-stone-800 my-4">
