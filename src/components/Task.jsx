@@ -1,8 +1,12 @@
 const Task = ({ projectId, taskIndex, task, handleDeleteTask }) => {
   return (
     <li className="flex justify-between my-4">
-      {task.title}
-      <button onClick={() => handleDeleteTask(projectId, taskIndex)}>Clear</button>
+      <span>{task.title}</span>
+      <button
+        className={'text-stone-700 hover:text-red-500'}
+        onClick={() => handleDeleteTask(projectId, taskIndex)}>
+        Clear
+      </button>
     </li>
   );
 };
