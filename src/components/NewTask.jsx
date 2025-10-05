@@ -14,7 +14,7 @@ const NewTask = ({ onAddTask }) => {
         value={newTaskTitle}
         onChange={(e) => setNewTaskTitle(e.currentTarget.value)}
       />
-      <button className={'text-stone-700 hover:text-red-950'} onClick={onAddTaskClick}>
+      <button className={'text-stone-700 hover:text-stone-950'} onClick={onAddTaskClick}>
         Add task
       </button>
     </div>
