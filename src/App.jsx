@@ -28,6 +28,7 @@ function App() {
     const newProject = { id: Date.now(), tasks: [], ...projectData };
 
     setProjectsState(prevState => ({
+      ...prevState,
       selectedProjectId: undefined,
       projects: [...prevState.projects, newProject],
     }));
@@ -42,6 +43,7 @@ function App() {
 
   const handleDeleteProject = (projectId) => {
     setProjectsState(prevState => ({
+      ...prevState,
       selectedProjectId: undefined,
       projects: prevState.projects.filter(project => project.id !== projectId),
     }));
@@ -62,8 +64,6 @@ function App() {
         { ...project, tasks: project.tasks.filter(task => project.tasks.indexOf(task) !== taskIndex) } : project),
     }));
   };
-
-  console.log(projectsState);
 
   return (
     <main className="h-screen my-8 flex gap-8">
