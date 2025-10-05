@@ -1,23 +1,17 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import Input from './Input';
 
 const NewProject = ({ handleCancel, handleSave }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-
-  const handleTitleChange = (e) => {
-    setTitle(e.currentTarget.value);
-  };
-  const handleDescriptionChange = (e) => {
-    setDescription(e.currentTarget.value);
-  };
-  const handleDueDateChange = (e) => {
-    setDueDate(e.currentTarget.value);
-  };
+  const title = useRef();
+  const description = useRef();
+  const dueDate = useRef();
 
   const onSaveClick = () => {
-    handleSave({ id: Date.now(), title, description, dueDate, tasks: [] });
+    handleSave({ 
+      title: title.current.value, 
+      description: description.current.value, 
+      dueDate: dueDate.current.value, 
+    });
   };
 
   return (
@@ -39,9 +33,9 @@ const NewProject = ({ handleCancel, handleSave }) => {
         </li>
       </menu>
       <div>
-        <Input label={'Title'} value={title} onChange={handleTitleChange} type={'text'} />
-        <Input label={'Description'} value={description} onChange={handleDescriptionChange} isTextarea={true} />
-        <Input label={'Due date'} value={dueDate} onChange={handleDueDateChange} type={'date'} />
+        <Input ref={title} label={'Title'} type={'text'} />
+        <Input ref={description} label={'Description'} isTextarea={true} />
+        <Input ref={dueDate} label={'Due date'} type={'date'} />
       </div>
     </div>
   );

@@ -24,10 +24,12 @@ function App() {
     }));
   }
 
-  const handleSaveProject = (project) => {
+  const handleSaveProject = (projectData) => {
+    const newProject = { id: Date.now(), tasks: [], ...projectData };
+
     setProjectsState(prevState => ({
       selectedProjectId: undefined,
-      projects: [...prevState.projects, project],
+      projects: [...prevState.projects, newProject],
     }));
   };
 
