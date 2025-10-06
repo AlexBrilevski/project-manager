@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-const NewTask = ({ onAddTask }) => {
+const NewTask = ({ handleAddTask }) => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   const onAddTaskClick = () => {
-    onAddTask(newTaskTitle);
+    handleAddTask(newTaskTitle);
     setNewTaskTitle('');
   };
 

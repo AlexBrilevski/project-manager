@@ -1,6 +1,6 @@
 import Tasks from './Tasks';
 
-const Project = ({ project, handleDelete, handleAddTask, handleDeleteTask }) => {
+const Project = ({ project, tasks, handleDelete, handleAddTask, handleDeleteTask }) => {
   const formattedDate = new Date(project.dueDate).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -28,8 +28,7 @@ const Project = ({ project, handleDelete, handleAddTask, handleDeleteTask }) => 
         </p>
       </header>
       <Tasks
-        projectId={project.id}
-        tasks={project.tasks}
+        tasks={tasks}
         handleAddTask={handleAddTask}
         handleDeleteTask={handleDeleteTask}
       />

@@ -8,6 +8,7 @@ function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
+    tasks: [],
   });
 
   const enableNewProjectView = () => {
@@ -25,7 +26,7 @@ function App() {
   }
 
   const handleSaveProject = (projectData) => {
-    const newProject = { id: Date.now(), tasks: [], ...projectData };
+    const newProject = { id: Date.now(), ...projectData };
 
     setProjectsState(prevState => ({
       ...prevState,
@@ -46,24 +47,27 @@ function App() {
       ...prevState,
       selectedProjectId: undefined,
       projects: prevState.projects.filter(project => project.id !== prevState.selectedProjectId),
+      tasks: prevState.tasks.filter(task => task.projectId !== prevState.selectedProjectId),
     }));
   };
 
-  const handleAddTask = (projectId, title) => {
+  const handleAddTask = (title) => {
+    const newTask = { id: Date.now(), projectId: projectsState.selectedProjectId, title };
+
     setProjectsState(prevState => ({
       ...prevState,
-      projects: prevState.projects.map(project => project.id === projectId ?
-        { ...project, tasks: [...project.tasks, { title }] } : project),
+      tasks: [newTask, ...prevState.tasks],
     }));
   };
 
-  const handleDeleteTask = (projectId, taskIndex) => {
+  const handleDeleteTask = (taskId) => {
     setProjectsState(prevState => ({
       ...prevState,
-      projects: prevState.projects.map(project => project.id === projectId ?
-        { ...project, tasks: project.tasks.filter(task => project.tasks.indexOf(task) !== taskIndex) } : project),
+      tasks: prevState.tasks.filter(task => task.id !== taskId)
     }));
   };
+
+  console.log(projectsState);
 
   return (
     <main className="h-screen my-8 flex gap-8">
@@ -85,6 +89,7 @@ function App() {
       {projectsState.selectedProjectId &&
         <Project
           project={projectsState.projects.find(project => project.id === projectsState.selectedProjectId)}
+          tasks={projectsState.tasks.filter(task => task.projectId === projectsState.selectedProjectId)}
           handleDelete={handleDeleteProject}
           handleAddTask={handleAddTask}
           handleDeleteTask={handleDeleteTask}

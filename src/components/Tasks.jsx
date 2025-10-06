@@ -1,22 +1,16 @@
 import NewTask from './NewTask';
 import Task from './Task';
 
-const Tasks = ({ projectId, tasks, handleAddTask, handleDeleteTask }) => {
-  const onAddTask = (newTaskTitle) => {
-    handleAddTask(projectId, newTaskTitle);
-  };
-
+const Tasks = ({ tasks, handleAddTask, handleDeleteTask }) => {
   return (
     <section>
       <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>
-      <NewTask onAddTask={onAddTask} />
+      <NewTask handleAddTask={handleAddTask} />
       {tasks.length > 0 ?
         <ul className="p-4 mt-8 rounded-md bg-stone-100">
-          {tasks.map((task, index) =>
+          {tasks.map(task =>
             <Task
-              key={index}
-              projectId={projectId}
-              taskIndex={index}
+              key={task.id}
               task={task}
               handleDeleteTask={handleDeleteTask}
             />
