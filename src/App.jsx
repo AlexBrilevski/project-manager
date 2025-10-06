@@ -41,11 +41,11 @@ function App() {
     }));
   };
 
-  const handleDeleteProject = (projectId) => {
+  const handleDeleteProject = () => {
     setProjectsState(prevState => ({
       ...prevState,
       selectedProjectId: undefined,
-      projects: prevState.projects.filter(project => project.id !== projectId),
+      projects: prevState.projects.filter(project => project.id !== prevState.selectedProjectId),
     }));
   };
 

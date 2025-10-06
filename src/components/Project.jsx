@@ -15,7 +15,7 @@ const Project = ({ project, handleDelete, handleAddTask, handleDeleteTask }) => 
             {project.title}
           </h1>
           <button className="text-stone-600 hover:text-stone-950"
-            onClick={() => handleDelete(project.id)}
+            onClick={handleDelete}
           >
             Delete
           </button>
