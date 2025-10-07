@@ -4,8 +4,10 @@ const NewTask = ({ handleAddTask }) => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   const onAddTaskClick = () => {
-    handleAddTask(newTaskTitle);
-    setNewTaskTitle('');
+    if (newTaskTitle.trim().length) {
+      handleAddTask(newTaskTitle);
+      setNewTaskTitle('');
+    }
   };
 
   return (
